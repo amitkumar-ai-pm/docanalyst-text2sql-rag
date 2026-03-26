@@ -59,6 +59,7 @@ Create `.env` in project root:
 OPENAI_API_KEY=...
 UPSTASH_VECTOR_REST_URL=...
 UPSTASH_VECTOR_REST_TOKEN=...
+DEFAULT_API_BASE_URL=http://127.0.0.1:8000
 DEFAULT_CSV_PATH=data/sell_prices.csv
 ```
 
@@ -195,4 +196,27 @@ Stop services:
 ```powershell
 docker compose down
 ```
+
+---
+
+## Cloud Deploy (Render)
+
+This repo includes `render.yaml` for two services:
+- `docanalyst-api` (FastAPI)
+- `docanalyst-ui` (Streamlit)
+
+### Steps
+
+1. Push latest code to GitHub.
+2. In Render, choose **New +** -> **Blueprint** and select this repository.
+3. Set required secrets in Render:
+   - `OPENAI_API_KEY`
+   - `UPSTASH_VECTOR_REST_URL`
+   - `UPSTASH_VECTOR_REST_TOKEN`
+4. Set `DEFAULT_CSV_PATH` to where your CSV exists on the server.
+5. Update `DEFAULT_API_BASE_URL` for UI to your API URL (for example `https://docanalyst-api.onrender.com`).
+
+Notes:
+- Absolute local paths from your laptop will not work in cloud.
+- For production, store CSV in cloud storage and download/mount it during startup.
 

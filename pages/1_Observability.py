@@ -13,7 +13,8 @@ import streamlit as st
 
 st.set_page_config(page_title="Observability", layout="wide")
 st.title("Observability, Evaluation, and Q&A Archive")
-api_base = st.text_input("FastAPI base URL", value="http://127.0.0.1:8000")
+default_api_base = os.getenv("DEFAULT_API_BASE_URL", "http://127.0.0.1:8000")
+api_base = st.text_input("FastAPI base URL", value=default_api_base)
 
 OBS_DIR = Path("observability")
 DB_PATH = OBS_DIR / "events.db"
