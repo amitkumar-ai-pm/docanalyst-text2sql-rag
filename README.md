@@ -61,6 +61,12 @@ UPSTASH_VECTOR_REST_URL=...
 UPSTASH_VECTOR_REST_TOKEN=...
 ```
 
+You can copy from template:
+
+```powershell
+copy env.example .env
+```
+
 ---
 
 ## Upstash Vector Index Settings
@@ -168,4 +174,24 @@ Use:
 Outputs:
 - `observability/eval_results_<timestamp>.csv`
 - terminal summary (Correct / Partially Correct / Incorrect)
+
+---
+
+## Production Baseline (Docker)
+
+Run API + UI together:
+
+```powershell
+docker compose up --build
+```
+
+Services:
+- API: `http://127.0.0.1:8000`
+- Streamlit UI: `http://127.0.0.1:8501`
+
+Stop services:
+
+```powershell
+docker compose down
+```
 
