@@ -1,0 +1,30 @@
+[
+  {
+    "question": "What is the highest sell_price in the dataset?",
+    "expected_route": "sql",
+    "must_contain": ["107.32"],
+    "reference_sql": "SELECT MAX(sell_price) AS max_sell_price FROM data"
+  },
+  {
+    "question": "What is the shortest period for which any item had no change in price?",
+    "expected_route": "sql",
+    "must_contain": ["shortest", "period"],
+    "reference_sql": "WITH base AS (SELECT item_id, store_id, wm_yr_wk, sell_price, CASE WHEN sell_price = LAG(sell_price) OVER (PARTITION BY item_id, store_id ORDER BY wm_yr_wk) THEN 0 ELSE 1 END AS is_new_streak FROM data), streaked AS (SELECT *, SUM(is_new_streak) OVER (PARTITION BY item_id, store_id ORDER BY wm_yr_wk ROWS UNBOUNDED PRECEDING) AS streak_id FROM base), streak_lengths AS (SELECT item_id, store_id, streak_id, sell_price, COUNT(*) AS streak_len FROM streaked GROUP BY item_id, store_id, streak_id, sell_price) SELECT MIN(streak_len) AS shortest_no_change_period_rows FROM streak_lengths"
+  },
+  {
+    "question": "Which HOBBIES items have stable prices?",
+    "expected_route": "sql",
+    "must_contain": ["hobbies"],
+    "reference_sql": "SELECT item_id, COUNT(DISTINCT sell_price) AS price_variations FROM data WHERE UPPER(item_id) LIKE 'HOBBIES%' GROUP BY item_id HAVING COUNT(DISTINCT sell_price) = 1 ORDER BY item_id LIMIT 10"
+  },
+  {
+    "question": "Based on indexed chunks, which items seem stable and why?",
+    "expected_route": "rag",
+    "must_contain": ["cit", "stable"]
+  },
+  {
+    "question": "Explain what citations suggest about price behavior for HOBBIES_1_077",
+    "expected_route": "rag",
+    "must_contain": ["hobbies_1_077"]
+  }
+]

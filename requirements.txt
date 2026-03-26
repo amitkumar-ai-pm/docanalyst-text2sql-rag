@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+streamlit
+requests
+python-dotenv
+pandas
+langchain
+langchain-openai
+langchain-community
+upstash-vector
+duckdb
+langgraph

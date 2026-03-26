@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment and secrets
+.env
+
+# Notebook/runtime artifacts
+.ipynb_checkpoints/
+
+# Local observability outputs
+observability/events.db
+observability/events.jsonl
+observability/eval_results_*.csv
