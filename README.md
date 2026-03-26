@@ -59,6 +59,7 @@ Create `.env` in project root:
 OPENAI_API_KEY=...
 UPSTASH_VECTOR_REST_URL=...
 UPSTASH_VECTOR_REST_TOKEN=...
+DEFAULT_CSV_PATH=data/sell_prices.csv
 ```
 
 You can copy from template:
@@ -168,7 +169,7 @@ To keep storage lightweight, only the **latest 100 events** are retained.
 Use:
 
 ```powershell
-.\.venv\Scripts\python.exe evaluation.py --api http://127.0.0.1:8000 --csv "C:\Users\1036506\Downloads\data_M5\sell_prices.csv" --questions eval_questions.json
+.\.venv\Scripts\python.exe evaluation.py --api http://127.0.0.1:8000 --csv "<path-to-your-csv>" --questions eval_questions.json
 ```
 
 Outputs:

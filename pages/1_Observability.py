@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import glob
 import json
+import os
 import sqlite3
 from pathlib import Path
 
@@ -167,7 +168,7 @@ if eval_df.empty:
     st.info("No evaluation runs found. Run `evaluation.py` to generate reports.")
 else:
     with st.expander("Run evaluation now"):
-        default_csv = r"C:\Users\1036506\Downloads\data_M5\sell_prices.csv"
+        default_csv = os.getenv("DEFAULT_CSV_PATH", "data/sell_prices.csv")
         run_csv_path = st.text_input("CSV path for eval run", value=default_csv)
         run_namespace = st.text_input("Namespace for eval run", value="csv_sell_prices")
         run_questions = st.text_input("Questions file path", value="eval_questions.json")

@@ -1,3 +1,5 @@
+import os
+
 import requests
 import streamlit as st
 
@@ -6,7 +8,8 @@ st.title("Hybrid RAG Document Q&A")
 st.caption("Analytics route for exact numeric queries, RAG route for semantic queries.")
 
 api_base = st.text_input("FastAPI base URL", value="http://127.0.0.1:8000")
-csv_path = st.text_input("CSV path on backend machine", value=r"C:\Users\1036506\Downloads\data_M5\sell_prices.csv")
+default_csv_path = os.getenv("DEFAULT_CSV_PATH", "data/sell_prices.csv")
+csv_path = st.text_input("CSV path on backend machine", value=default_csv_path)
 namespace = st.text_input("Upstash namespace (optional)", value="csv_sell_prices")
 use_langgraph_agent = st.toggle("Use LangGraph hybrid agent", value=True)
 
